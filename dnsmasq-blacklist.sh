@@ -31,6 +31,9 @@ sed -i -e 's#0.0.0.0 ##' stevenblackhosts.conf
 # Remove inline comments.
 sed -i -e 's/#.*$//' stevenblackhosts.conf
 
+# Remove Epic Games metrics from the list.
+sed -i '/metric-public-service-prod.ol.epicgames.com//d' stevenblackhosts.conf
+
 # Change into Dnsmasq format.
 sed -i -e 's#^#address=/#; s#$#/0.0.0.0#' stevenblackhosts.conf
 
