@@ -195,6 +195,9 @@ echo "address=/ssl.google-analytics.com/0.0.0.0" >> tmp.conf
 # Remove any blank spaces.
 sed -i -e 's/ //g' tmp.conf
 
+# Remove any www. infront of domains.
+sed -i -e 's/www\.//g' tmp.conf
+
 # Remove any duplicate entries.
 awk '!seen[$0]++' tmp.conf > dnsmasq-blacklist.conf
 
