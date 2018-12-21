@@ -2,3 +2,5 @@ BL*
 *.conf
 *.tar.gz
 hosts
+*.txt
+*.acl

@@ -5,9 +5,10 @@ rm hosts *.conf shalla* *.acl *.txt
 rm -rf BL
 
 #
-# Steven Black hosts file.
+# Steven Black unified hosts file with fakenews, gambling, and porn extensions.
+# https://github.com/StevenBlack/hosts
 #
-wget https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+wget https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts
 cp hosts stevenblackhosts.conf
 
 # Remove this line.
@@ -34,7 +35,7 @@ sed -i -e 's/#.*$//' stevenblackhosts.conf
 sed -i -e 's#^#address=/#; s#$#/0.0.0.0#' stevenblackhosts.conf
 
 #
-# Crazy Max anti phone home Windows 10 spying.
+# Crazy Max anti Microsoft telemetry files.
 #
 wget http://winspyblocker.crazyws.fr/data/hosts/spy.txt
 wget http://winspyblocker.crazyws.fr/data/hosts/update.txt
@@ -55,6 +56,10 @@ sed -i -e 's#0.0.0.0 ##' crazy-max.conf
 # Change into Dnsmasq format.
 sed -i -e 's#^#address=/#; s#$#/0.0.0.0#' crazy-max.conf
 
+# Windows 10 performs regular lookups to this domain eventhough it currently
+# isn't registered.
+echo "address=/canonicalizer.ucsuri.tcs/0.0.0.0" >> crazy-max.conf
+
 #
 # Shallalist.
 # 
@@ -64,7 +69,7 @@ tar -xzvf shallalist.tar.gz
 # COMMENT OUT THE SECTIONS YOU DON'T WANT.
 
 touch shallalist.conf
-cat BL/adv/domains >> shallalist.conf
+#cat BL/adv/domains >> shallalist.conf
 cat BL/aggressive/domains >> shallalist.conf
 cat BL/alcohol/domains >> shallalist.conf
 cat BL/anonvpn/domains >> shallalist.conf
@@ -75,7 +80,7 @@ cat BL/anonvpn/domains >> shallalist.conf
 #cat BL/chat/domains >> shallalist.conf
 cat BL/costtraps/domains >> shallalist.conf
 cat BL/dating/domains >> shallalist.conf
-cat BL/downloads/domains >> shallalist.conf
+#cat BL/downloads/domains >> shallalist.conf
 cat BL/drugs/domains >> shallalist.conf
 #cat BL/dynamic/domains >> shallalist.conf
 #cat BL/education/schools/domains >> shallalist.conf
@@ -87,11 +92,7 @@ cat BL/drugs/domains >> shallalist.conf
 #cat BL/finance/trading/domains >> shallalist.conf
 #cat BL/fortunetelling/domains >> shallalist.conf
 #cat BL/forum/domains >> shallalist.conf
-
-# For some strange reason github.com doesn't work when this list is added.
-# Github isn't located in the domain file.
 #cat BL/gamble/domains >> shallalist.conf
-
 #cat BL/government/domains >> shallalist.conf
 #cat BL/hacking/domains >> shallalist.conf
 #cat BL/hobby/cooking/domains >> shallalist.conf
@@ -134,10 +135,10 @@ cat BL/sex/lingerie/domains >> shallalist.conf
 #cat BL/spyware/domains >> shallalist.conf
 cat BL/tracker/domains >> shallalist.conf
 #cat BL/updatesites/domains >> shallalist.conf
-cat BL/urlshortener/domains >> shallalist.conf
+#cat BL/urlshortener/domains >> shallalist.conf
 cat BL/violence/domains >> shallalist.conf
 cat BL/warez/domains >> shallalist.conf
-cat BL/weapons/domains >> shallalist.conf
+#cat BL/weapons/domains >> shallalist.conf
 #cat BL/webmail/domains >> shallalist.conf
 #cat BL/webphone/domains >> shallalist.conf
 #cat BL/webradio/domains >> shallalist.conf
@@ -175,13 +176,27 @@ sed -i -e '/^#/d' dg-ads.acl
 # Change into Dnsmasq format.
 sed -i -e 's#^#address=/#; s#$#/0.0.0.0#' dg-ads.acl 
 
-# Create our final list.
-cat crazy-max.conf stevenblackhosts.conf shallalist.conf dg-ads.acl > dnsmasq-blacklist.conf
+# Combine everything to a single temporary list.
+cat crazy-max.conf stevenblackhosts.conf shallalist.conf dg-ads.acl > tmp.conf
 
-# Add a homemade blacklist.
-echo "address=/yandex.com/0.0.0.0" >> dnsmasq-blacklist.conf
-echo "address=/cpy-crack.net/0.0.0.0" >> dnsmasq-blacklist.conf
-echo "address=/ovpn.com/0.0.0.0" >> dnsmasq-blacklist.conf
+# Add anti Nvidia telemetry.
+echo "address=/gfswl.geforce.com/0.0.0.0" >> tmp.conf
+echo "address=/telemetry.nvidia.com/0.0.0.0" >> tmp.conf
+echo "address=/gfe.nvidia.com/0.0.0.0" >> tmp.conf
+echo "address=/telemetry-dce.gfe.nvidia.com/0.0.0.0" >> tmp.conf
+echo "address=/events-dc1.gfe.nvidia.com/0.0.0.0" >> tmp.conf
+
+# Add some homemade entries.
+echo "address=/yandex.com/0.0.0.0" >> tmp.conf
+echo "address=/cpy-crack.net/0.0.0.0" >> tmp.conf
+echo "address=/ovpn.com/0.0.0.0" >> tmp.conf
+echo "address=/ssl.google-analytics.com/0.0.0.0" >> tmp.conf
+
+# Remove any blank spaces.
+sed -i -e 's/ //g' tmp.conf
+
+# Remove any duplicate entries.
+awk '!seen[$0]++' tmp.conf > dnsmasq-blacklist.conf
 
 echo ""
 echo "Put dnsmasq-blacklist.conf in /etc/dnsmasq.d/"
