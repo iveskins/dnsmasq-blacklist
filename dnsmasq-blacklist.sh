@@ -59,9 +59,9 @@ sed -i -e 's#0.0.0.0 ##' crazy-max.conf
 # Change into Dnsmasq format.
 sed -i -e 's#^#address=/#; s#$#/0.0.0.0#' crazy-max.conf
 
-# Windows 10 performs regular lookups to this domain eventhough it currently
-# isn't registered.
+# Windows 10 performs regular lookups to these domains.
 echo "address=/canonicalizer.ucsuri.tcs/0.0.0.0" >> crazy-max.conf
+echo "address=/ctldl.windowsupdate.com/0.0.0.0" >> crazy-max.conf
 
 #
 # Shallalist.
