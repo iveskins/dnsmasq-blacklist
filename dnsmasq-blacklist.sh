@@ -25,36 +25,6 @@ cd tmp
 wget https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts
 mv hosts stevenblackhosts.conf
 
-# Remove this line.
-sed -i -e 's#0.0.0.0 0.0.0.0##' stevenblackhosts.conf
-
-# Delete empty lines or blank lines.
-sed -i -e '/^$/d' stevenblackhosts.conf
-
-# Delete lines that begin with #.
-sed -i -e '/^#/d' stevenblackhosts.conf
-
-# Delete other specific lines.
-sed -i -e '/^::/d' stevenblackhosts.conf
-sed -i -e '/^127.0.0.1/d' stevenblackhosts.conf
-sed -i -e '/^255.255.255.255/d' stevenblackhosts.conf
-sed -i -e '/^ff0/d' stevenblackhosts.conf
-sed -i -e '/^fe80/d' stevenblackhosts.conf
-sed -i -e 's#0.0.0.0 ##' stevenblackhosts.conf
-
-# Remove inline comments.
-sed -i -e 's/#.*$//' stevenblackhosts.conf
-
-# Remove Epic Games metrics from the list.
-sed -i '/metric-public-service-prod.ol.epicgames.com//d' stevenblackhosts.conf
-
-# Remove typo domains.
-sed -i -e '/--/d' stevenblackhosts.conf
-sed -i -e '/-./d' stevenblackhosts.conf
-
-# Change into Dnsmasq format.
-sed -i -e 's#^#address=/#; s#$#/0.0.0.0#' stevenblackhosts.conf
-
 #-------------------------------------#
 # Crazy Max Microsoft telemetry
 #-------------------------------------#
@@ -62,29 +32,15 @@ sed -i -e 's#^#address=/#; s#$#/0.0.0.0#' stevenblackhosts.conf
 wget http://winspyblocker.crazyws.fr/data/hosts/spy.txt
 wget http://winspyblocker.crazyws.fr/data/hosts/update.txt
 wget http://winspyblocker.crazyws.fr/data/hosts/extra.txt
-cat spy.txt > crazy-max.conf
+mv spy.txt > crazy-max.conf
 cat update.txt >> crazy-max.conf
 cat extra.txt >> crazy-max.conf
-
-# Delete lines that begin with #.
-sed -i -e '/^#/d' crazy-max.conf
-
-# Delete empty lines or blank lines.                                                                          
-sed -i -e '/^$/d' crazy-max.conf
-
-# Delete other specific lines.
-sed -i -e 's#0.0.0.0 ##' crazy-max.conf
-
-# Change into Dnsmasq format.
-sed -i -e 's#^#address=/#; s#$#/0.0.0.0#' crazy-max.conf
-
-# Windows 10 performs regular lookups to these domains.
-echo "address=/canonicalizer.ucsuri.tcs/0.0.0.0" >> crazy-max.conf
-echo "address=/ctldl.windowsupdate.com/0.0.0.0" >> crazy-max.conf
 
 #-------------------------------------#
 # Shallalist
 #-------------------------------------#
+
+# Uncomment the lists you need.
 
 wget http://www.shallalist.de/Downloads/shallalist.tar.gz
 tar -xzvf shallalist.tar.gz
@@ -165,47 +121,12 @@ cat BL/warez/domains >> shallalist.conf
 #cat BL/webradio/domains >> shallalist.conf
 #cat BL/webtv/domains >> shallalist.conf
 
-# Remove all IP only lines.
-sed -i -e 's/[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}//g' shallalist.conf
-
-# Remove the dot from lines that begins with a dot.
-sed -i -e 's/^\.//' shallalist.conf
-
-# Fix mistake in the warez zone.
-sed -i -e 's#tpb"#tpb#' shallalist.conf 
-
-# Remove PIA from the list because we want that.
-sed -i '/privateinternetaccess.com/d' shallalist.conf
-
-# Delete empty lines or blank lines.
-sed -i -e '/^$/d' shallalist.conf
-
-# Remove typo domains.
-sed -i -e '/--/d' shallalist.conf                                                                              
-sed -i -e '/-./d' shallalist.conf
-
-# Remove domains with non-printable characters.
-# Use "LANG=C" to avoid a "Invalid collation character" error with sed.
-LANG=C sed -i -e 's/[\d128-\d255]//g' shallalist.conf
-
-# Change into Dnsmasq format.
-sed -i -e 's#^#address=/#; s#$#/0.0.0.0#' shallalist.conf
-
 #-------------------------------------#
 # Squid blacklist
 #-------------------------------------#
 
 wget https://www.squidblacklist.org/downloads/dg-ads.acl
 mv dg-ads.acl dg-ads.conf
-
-# Delete empty lines or blank lines.
-sed -i -e '/^$/d' dg-ads.conf
-
-# Delete lines that begin with #.
-sed -i -e '/^#/d' dg-ads.conf
-
-# Change into Dnsmasq format.
-sed -i -e 's#^#address=/#; s#$#/0.0.0.0#' dg-ads.conf
 
 #-------------------------------------#
 # Firebog privacy list 
@@ -214,30 +135,12 @@ sed -i -e 's#^#address=/#; s#$#/0.0.0.0#' dg-ads.conf
 wget https://v.firebog.net/hosts/Easyprivacy.txt
 mv Easyprivacy.txt easyprivacy.conf
 
-# Delete empty lines or blank lines.
-sed -i -e '/^$/d' easyprivacy.conf
-
-# Delete lines that begin with #.
-sed -i -e '/^#/d' easyprivacy.conf
-
-# Change into Dnsmasq format.
-sed -i -e 's#^#address=/#; s#$#/0.0.0.0#' easyprivacy.conf
-
 #-------------------------------------#
 # Firebog ads list 
 #-------------------------------------#
 
 wget https://v.firebog.net/hosts/Prigent-Ads.txt
 mv Prigent-Ads.txt prigent-ads.conf
-
-# Delete empty lines or blank lines.
-sed -i -e '/^$/d' prigent-ads.conf
-
-# Delete lines that begin with #.
-sed -i -e '/^#/d' prigent-ads.conf
-
-# Change into Dnsmasq format.
-sed -i -e 's#^#address=/#; s#$#/0.0.0.0#' prigent-ads.conf
 
 #-------------------------------------#
 # NoTrack Tracker Blocklist 
@@ -246,27 +149,13 @@ sed -i -e 's#^#address=/#; s#$#/0.0.0.0#' prigent-ads.conf
 wget https://gitlab.com/quidsup/notrack-blocklists/raw/master/notrack-blocklist.txt
 mv notrack-blocklist.txt notrack-blocklist.conf
 
-# Delete empty lines or blank lines.
-sed -i -e '/^$/d' notrack-blocklist.conf
-
-# Delete lines that begin with #.
-sed -i -e '/^#/d' notrack-blocklist.conf
-
-# Remove inline comments.
-sed -i -e 's/#.*$//' notrack-blocklist.conf
-
-# Remove left over white space.
-sed -i 's/ //g' notrack-blocklist.conf
-
-# Change into Dnsmasq format.
-sed -i -e 's#^#address=/#; s#$#/0.0.0.0#' notrack-blocklist.conf
-
 #-------------------------------------#
 # Misc
 #-------------------------------------#
 
-# Add anti Nvidia telemetry.
 touch misc.conf
+
+# Add anti Nvidia telemetry.
 echo "address=/gfswl.geforce.com/0.0.0.0" >> misc.conf
 echo "address=/telemetry.nvidia.com/0.0.0.0" >> misc.conf
 echo "address=/gfe.nvidia.com/0.0.0.0" >> misc.conf
@@ -279,15 +168,55 @@ echo "address=/cpy-crack.net/0.0.0.0" >> misc.conf
 echo "address=/ovpn.com/0.0.0.0" >> misc.conf
 echo "address=/ssl.google-analytics.com/0.0.0.0" >> misc.conf
 
-# Remove any blank spaces.
-sed -i -e 's/ //g' misc.conf
-
-# Remove any www. infront of domains.
-sed -i -e 's/www\.//g' misc.conf
+# Windows 10 performs regular lookups to these domains.
+echo "address=/canonicalizer.ucsuri.tcs/0.0.0.0" >> misc.conf
+echo "address=/ctldl.windowsupdate.com/0.0.0.0" >> misc.conf
 
 #-------------------------------------#
 # Clean up
 #-------------------------------------#
+
+# Remove all IP only lines.
+sed -i -e 's/[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}//g' *.conf
+
+# Delete empty lines or blank lines.
+sed -i -e '/^$/d' *.conf
+
+# Delete lines that begin with #.
+sed -i -e '/^#/d' *.conf
+
+# Remove the dot from lines that begins with a dot.
+sed -i -e 's/^\.//' *.conf
+
+# Fix a mistake in the Shalla list warez zone.
+sed -i -e 's#tpb"#tpb#'  *.conf
+
+# Delete other specific lines.
+sed -i -e '/^::/d' *.conf
+sed -i -e '/^127.0.0.1/d' *.conf
+sed -i -e '/^255.255.255.255/d' *.conf
+sed -i -e '/^ff0/d' *.conf
+sed -i -e '/^fe80/d' *.conf
+sed -i -e 's#0.0.0.0 ##' *.conf
+sed -i -e 's#0.0.0.0 0.0.0.0##' *.conf
+sed -i -e '/--/d' *.conf
+sed -i -e '/-./d' *.conf
+
+# Remove inline comments.
+sed -i -e 's/#.*$//' *.conf
+
+# Remove PIA from any list because we want that.
+sed -i '/privateinternetaccess.com/d' *.conf
+
+# Remove domains with non-printable characters.
+# Use "LANG=C" to avoid a "Invalid collation character" error with sed.
+LANG=C sed -i -e 's/[\d128-\d255]//g' *.conf
+
+# Remove left over white space.
+sed -i 's/ //g' *.conf
+
+# Change into Dnsmasq format.
+sed -i -e 's#^#address=/#; s#$#/0.0.0.0#' *.conf
 
 # Remove any duplicate entries.
 
