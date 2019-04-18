@@ -1,15 +1,29 @@
 #!/bin/sh
 
-# Remove files that possibly exist from last run.
-rm hosts *.conf shalla* *.acl *.txt
-rm -rf BL
+# See The Big Blocklist Collection for futher lists if needed:
+# https://firebog.net/
 
-#
+# Remove files from last run (if any).
+if [[ -d 'config-files' ]]; then
+    rm config-files/*
+else
+    mkdir config-files
+fi
+if [[ -d 'tmp' ]]; then
+    rm -rf tmp/*
+else
+    mkdir tmp
+fi
+cd tmp
+
+#-------------------------------------#
+# Steven Black unified hosts file
+#-------------------------------------#
+
 # Steven Black unified hosts file with fakenews, gambling, and porn extensions.
 # https://github.com/StevenBlack/hosts
-#
 wget https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts
-cp hosts stevenblackhosts.conf
+mv hosts stevenblackhosts.conf
 
 # Remove this line.
 sed -i -e 's#0.0.0.0 0.0.0.0##' stevenblackhosts.conf
@@ -37,9 +51,10 @@ sed -i '/metric-public-service-prod.ol.epicgames.com//d' stevenblackhosts.conf
 # Change into Dnsmasq format.
 sed -i -e 's#^#address=/#; s#$#/0.0.0.0#' stevenblackhosts.conf
 
-#
-# Crazy Max anti Microsoft telemetry files.
-#
+#-------------------------------------#
+# Crazy Max Microsoft telemetry
+#-------------------------------------#
+
 wget http://winspyblocker.crazyws.fr/data/hosts/spy.txt
 wget http://winspyblocker.crazyws.fr/data/hosts/update.txt
 wget http://winspyblocker.crazyws.fr/data/hosts/extra.txt
@@ -63,13 +78,12 @@ sed -i -e 's#^#address=/#; s#$#/0.0.0.0#' crazy-max.conf
 echo "address=/canonicalizer.ucsuri.tcs/0.0.0.0" >> crazy-max.conf
 echo "address=/ctldl.windowsupdate.com/0.0.0.0" >> crazy-max.conf
 
-#
-# Shallalist.
-# 
+#-------------------------------------#
+# Shallalist
+#-------------------------------------#
+
 wget http://www.shallalist.de/Downloads/shallalist.tar.gz
 tar -xzvf shallalist.tar.gz
-
-# COMMENT OUT THE SECTIONS YOU DON'T WANT.
 
 touch shallalist.conf
 #cat BL/adv/domains >> shallalist.conf
@@ -165,47 +179,128 @@ sed -i -e '/^$/d' shallalist.conf
 # Change into Dnsmasq format.
 sed -i -e 's#^#address=/#; s#$#/0.0.0.0#' shallalist.conf
 
-#
-# Squid Blacklist. 
-#
+#-------------------------------------#
+# Squid blacklist
+#-------------------------------------#
+
 wget https://www.squidblacklist.org/downloads/dg-ads.acl
+mv dg-ads.acl dg-ads.conf
 
 # Delete empty lines or blank lines.
-sed -i -e '/^$/d' dg-ads.acl
+sed -i -e '/^$/d' dg-ads.conf
 
 # Delete lines that begin with #.
-sed -i -e '/^#/d' dg-ads.acl
+sed -i -e '/^#/d' dg-ads.conf
 
 # Change into Dnsmasq format.
-sed -i -e 's#^#address=/#; s#$#/0.0.0.0#' dg-ads.acl 
+sed -i -e 's#^#address=/#; s#$#/0.0.0.0#' dg-ads.conf
 
-# Combine everything to a single temporary list.
-cat crazy-max.conf stevenblackhosts.conf shallalist.conf dg-ads.acl > tmp.conf
+#-------------------------------------#
+# Firebog privacy list 
+#-------------------------------------#
+
+wget https://v.firebog.net/hosts/Easyprivacy.txt
+mv Easyprivacy.txt easyprivacy.conf
+
+# Delete empty lines or blank lines.
+sed -i -e '/^$/d' easyprivacy.conf
+
+# Delete lines that begin with #.
+sed -i -e '/^#/d' easyprivacy.conf
+
+# Change into Dnsmasq format.
+sed -i -e 's#^#address=/#; s#$#/0.0.0.0#' easyprivacy.conf
+
+#-------------------------------------#
+# Firebog ads list 
+#-------------------------------------#
+
+wget https://v.firebog.net/hosts/Prigent-Ads.txt
+mv Prigent-Ads.txt prigent-ads.conf
+
+# Delete empty lines or blank lines.
+sed -i -e '/^$/d' prigent-ads.conf
+
+# Delete lines that begin with #.
+sed -i -e '/^#/d' prigent-ads.conf
+
+# Change into Dnsmasq format.
+sed -i -e 's#^#address=/#; s#$#/0.0.0.0#' prigent-ads.conf
+
+#-------------------------------------#
+# NoTrack Tracker Blocklist 
+#-------------------------------------#
+
+wget https://gitlab.com/quidsup/notrack-blocklists/raw/master/notrack-blocklist.txt
+mv notrack-blocklist.txt notrack-blocklist.conf
+
+# Delete empty lines or blank lines.
+sed -i -e '/^$/d' notrack-blocklist.conf
+
+# Delete lines that begin with #.
+sed -i -e '/^#/d' notrack-blocklist.conf
+
+# Remove inline comments.
+sed -i -e 's/#.*$//' notrack-blocklist.conf
+
+# Remove left over white space.
+sed -i 's/ //g' notrack-blocklist.conf
+
+# Change into Dnsmasq format.
+sed -i -e 's#^#address=/#; s#$#/0.0.0.0#' notrack-blocklist.conf
+
+#-------------------------------------#
+# Misc
+#-------------------------------------#
 
 # Add anti Nvidia telemetry.
-echo "address=/gfswl.geforce.com/0.0.0.0" >> tmp.conf
-echo "address=/telemetry.nvidia.com/0.0.0.0" >> tmp.conf
-echo "address=/gfe.nvidia.com/0.0.0.0" >> tmp.conf
-echo "address=/telemetry-dce.gfe.nvidia.com/0.0.0.0" >> tmp.conf
-echo "address=/events-dc1.gfe.nvidia.com/0.0.0.0" >> tmp.conf
+touch misc.conf
+echo "address=/gfswl.geforce.com/0.0.0.0" >> misc.conf
+echo "address=/telemetry.nvidia.com/0.0.0.0" >> misc.conf
+echo "address=/gfe.nvidia.com/0.0.0.0" >> misc.conf
+echo "address=/telemetry-dce.gfe.nvidia.com/0.0.0.0" >> misc.conf
+echo "address=/events-dc1.gfe.nvidia.com/0.0.0.0" >> misc.conf
 
 # Add some homemade entries.
-echo "address=/yandex.com/0.0.0.0" >> tmp.conf
-echo "address=/cpy-crack.net/0.0.0.0" >> tmp.conf
-echo "address=/ovpn.com/0.0.0.0" >> tmp.conf
-echo "address=/ssl.google-analytics.com/0.0.0.0" >> tmp.conf
+echo "address=/yandex.com/0.0.0.0" >> misc.conf
+echo "address=/cpy-crack.net/0.0.0.0" >> misc.conf
+echo "address=/ovpn.com/0.0.0.0" >> misc.conf
+echo "address=/ssl.google-analytics.com/0.0.0.0" >> misc.conf
 
 # Remove any blank spaces.
-sed -i -e 's/ //g' tmp.conf
+sed -i -e 's/ //g' misc.conf
 
 # Remove any www. infront of domains.
-sed -i -e 's/www\.//g' tmp.conf
+sed -i -e 's/www\.//g' misc.conf
+
+#-------------------------------------#
+# Clean up
+#-------------------------------------#
 
 # Remove any duplicate entries.
-awk '!seen[$0]++' tmp.conf > dnsmasq-blacklist.conf
+
+# The old solution was to combine all files into one and then use awk:
+# awk '!seen[$0]++' tmp.conf > dnsmasq-blacklist.conf
+# By using this for loop we keep the different files separated and still
+# prevent the occurrence of duplicate entries.
+
+# This is CPU and memory expensive.
+temp=$(mktemp)
+for file_to_dedupe in $(echo *.conf|sort)
+do
+   for file_to_strip in *.conf
+   do
+      [ "$file_to_dedupe" == "$file_to_strip" ] && continue
+      grep -w -Ff ${file_to_dedupe} -v ${file_to_strip} > ${temp}
+      mv ${temp} ${file_to_strip}
+   done
+done
+
+mv *.conf ../config-files/
 
 echo ""
-echo "Put dnsmasq-blacklist.conf in /etc/dnsmasq.d/"
+echo "Put all the *.conf files from the 'config-files' directory into"
+echo "/etc/dnsmasq.d/"
 echo ""
 echo "Restart dnsmasq and remember to check the log!"
 echo ""
