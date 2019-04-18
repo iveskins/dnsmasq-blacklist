@@ -150,29 +150,6 @@ wget https://gitlab.com/quidsup/notrack-blocklists/raw/master/notrack-blocklist.
 mv notrack-blocklist.txt notrack-blocklist.conf
 
 #-------------------------------------#
-# Misc
-#-------------------------------------#
-
-touch misc.conf
-
-# Add anti Nvidia telemetry.
-echo "address=/gfswl.geforce.com/0.0.0.0" >> misc.conf
-echo "address=/telemetry.nvidia.com/0.0.0.0" >> misc.conf
-echo "address=/gfe.nvidia.com/0.0.0.0" >> misc.conf
-echo "address=/telemetry-dce.gfe.nvidia.com/0.0.0.0" >> misc.conf
-echo "address=/events-dc1.gfe.nvidia.com/0.0.0.0" >> misc.conf
-
-# Add some homemade entries.
-echo "address=/yandex.com/0.0.0.0" >> misc.conf
-echo "address=/cpy-crack.net/0.0.0.0" >> misc.conf
-echo "address=/ovpn.com/0.0.0.0" >> misc.conf
-echo "address=/ssl.google-analytics.com/0.0.0.0" >> misc.conf
-
-# Windows 10 performs regular lookups to these domains.
-echo "address=/canonicalizer.ucsuri.tcs/0.0.0.0" >> misc.conf
-echo "address=/ctldl.windowsupdate.com/0.0.0.0" >> misc.conf
-
-#-------------------------------------#
 # Clean up
 #-------------------------------------#
 
@@ -236,6 +213,29 @@ do
       mv ${temp} ${file_to_strip}
    done
 done
+
+#-------------------------------------#
+# Personal entries
+#-------------------------------------#
+
+touch personal.conf
+
+# Add anti Nvidia telemetry.
+echo "address=/gfswl.geforce.com/0.0.0.0" >> personal.conf
+echo "address=/telemetry.nvidia.com/0.0.0.0" >> personal.conf
+echo "address=/gfe.nvidia.com/0.0.0.0" >> personal.conf
+echo "address=/telemetry-dce.gfe.nvidia.com/0.0.0.0" >> personal.conf
+echo "address=/events-dc1.gfe.nvidia.com/0.0.0.0" >> personal.conf
+
+# Add some homemade entries.
+echo "address=/yandex.com/0.0.0.0" >> personal.conf
+echo "address=/cpy-crack.net/0.0.0.0" >> personal.conf
+echo "address=/ovpn.com/0.0.0.0" >> personal.conf
+echo "address=/ssl.google-analytics.com/0.0.0.0" >> personal.conf
+
+# Windows 10 performs regular lookups to these domains.
+echo "address=/canonicalizer.ucsuri.tcs/0.0.0.0" >> personal.conf
+echo "address=/ctldl.windowsupdate.com/0.0.0.0" >> personal.conf
 
 mv *.conf ../config-files/
 
