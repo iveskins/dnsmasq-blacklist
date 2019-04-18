@@ -48,6 +48,10 @@ sed -i -e 's/#.*$//' stevenblackhosts.conf
 # Remove Epic Games metrics from the list.
 sed -i '/metric-public-service-prod.ol.epicgames.com//d' stevenblackhosts.conf
 
+# Remove typo domains.
+sed -i -e '/--/d' stevenblackhosts.conf
+sed -i -e '/-./d' stevenblackhosts.conf
+
 # Change into Dnsmasq format.
 sed -i -e 's#^#address=/#; s#$#/0.0.0.0#' stevenblackhosts.conf
 
@@ -175,6 +179,14 @@ sed -i '/privateinternetaccess.com/d' shallalist.conf
 
 # Delete empty lines or blank lines.
 sed -i -e '/^$/d' shallalist.conf
+
+# Remove typo domains.
+sed -i -e '/--/d' shallalist.conf                                                                              
+sed -i -e '/-./d' shallalist.conf
+
+# Remove domains with non-printable characters.
+# Use "LANG=C" to avoid a "Invalid collation character" error with sed.
+LANG=C sed -i -e 's/[\d128-\d255]//g' shallalist.conf
 
 # Change into Dnsmasq format.
 sed -i -e 's#^#address=/#; s#$#/0.0.0.0#' shallalist.conf
