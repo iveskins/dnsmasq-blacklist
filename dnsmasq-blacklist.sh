@@ -32,7 +32,7 @@ mv hosts stevenblackhosts.conf
 wget http://winspyblocker.crazyws.fr/data/hosts/spy.txt
 wget http://winspyblocker.crazyws.fr/data/hosts/update.txt
 wget http://winspyblocker.crazyws.fr/data/hosts/extra.txt
-mv spy.txt > crazy-max.conf
+mv spy.txt crazy-max.conf
 cat update.txt >> crazy-max.conf
 cat extra.txt >> crazy-max.conf
 
