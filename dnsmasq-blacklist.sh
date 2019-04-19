@@ -1,13 +1,10 @@
 #!/bin/sh
 
-# See The Big Blocklist Collection for futher lists if needed:
-# https://firebog.net/
-
 # Remove files from last run (if any).
-if [[ -d 'config-files' ]]; then
-    rm config-files/*
+if [[ -d 'hosts-files' ]]; then
+    rm hosts-files/*
 else
-    mkdir config-files
+    mkdir hosts-files
 fi
 if [[ -d 'tmp' ]]; then
     rm -rf tmp/*
@@ -17,13 +14,12 @@ fi
 cd tmp
 
 #-------------------------------------#
-# Steven Black unified hosts file
+# Energized Protection
 #-------------------------------------#
 
-# Steven Black unified hosts file with fakenews, gambling, and porn extensions.
-# https://github.com/StevenBlack/hosts
-wget https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts
-mv hosts stevenblackhosts.conf
+# https://github.com/EnergizedProtection/block 
+wget https://raw.githubusercontent.com/EnergizedProtection/block/master/unified/formats/hosts.txt
+mv hosts.txt energized.txt
 
 #-------------------------------------#
 # Crazy Max Microsoft telemetry
@@ -32,9 +28,10 @@ mv hosts stevenblackhosts.conf
 wget http://winspyblocker.crazyws.fr/data/hosts/spy.txt
 wget http://winspyblocker.crazyws.fr/data/hosts/update.txt
 wget http://winspyblocker.crazyws.fr/data/hosts/extra.txt
-mv spy.txt crazy-max.conf
-cat update.txt >> crazy-max.conf
-cat extra.txt >> crazy-max.conf
+mv spy.txt crazy-max.txt
+cat update.txt >> crazy-max.txt
+cat extra.txt >> crazy-max.txt
+rm update.txt extra.txt
 
 #-------------------------------------#
 # Shallalist
@@ -45,203 +42,177 @@ cat extra.txt >> crazy-max.conf
 wget http://www.shallalist.de/Downloads/shallalist.tar.gz
 tar -xzvf shallalist.tar.gz
 
-touch shallalist.conf
-#cat BL/adv/domains >> shallalist.conf
-cat BL/aggressive/domains >> shallalist.conf
-cat BL/alcohol/domains >> shallalist.conf
-cat BL/anonvpn/domains >> shallalist.conf
-#cat BL/automobile/bikes/domains >> shallalist.conf
-#cat BL/automobile/boats/domains >> shallalist.conf
-#cat BL/automobile/cars/domains >> shallalist.conf
-#cat BL/automobile/planes/domains >> shallalist.conf
-#cat BL/chat/domains >> shallalist.conf
-cat BL/costtraps/domains >> shallalist.conf
-cat BL/dating/domains >> shallalist.conf
-#cat BL/downloads/domains >> shallalist.conf
-cat BL/drugs/domains >> shallalist.conf
-#cat BL/dynamic/domains >> shallalist.conf
-#cat BL/education/schools/domains >> shallalist.conf
-#cat BL/finance/banking/domains >> shallalist.conf
-#cat BL/finance/insurance/domains >> shallalist.conf
-#cat BL/finance/moneylending/domains >> shallalist.conf
-#cat BL/finance/other/domains >> shallalist.conf
-#cat BL/finance/realestate/domains >> shallalist.conf
-#cat BL/finance/trading/domains >> shallalist.conf
-#cat BL/fortunetelling/domains >> shallalist.conf
-#cat BL/forum/domains >> shallalist.conf
-#cat BL/gamble/domains >> shallalist.conf
-#cat BL/government/domains >> shallalist.conf
-#cat BL/hacking/domains >> shallalist.conf
-#cat BL/hobby/cooking/domains >> shallalist.conf
-#cat BL/hobby/games-misc/domains >> shallalist.conf
-#cat BL/hobby/games-online/domains >> shallalist.conf
-#cat BL/hobby/gardening/domains >> shallalist.conf
-#cat BL/hobby/pets/domains >> shallalist.conf
-#cat BL/homestyle/domains >> shallalist.conf
-#cat BL/hospitals/domains >> shallalist.conf
-#cat BL/imagehosting/domains >> shallalist.conf
-#cat BL/isp/domains >> shallalist.conf
-#cat BL/jobsearch/domains >> shallalist.conf
-#cat BL/library/domains >> shallalist.conf
-#cat BL/military/domains >> shallalist.conf
-#cat BL/models/domains >> shallalist.conf
-#cat BL/movies/domains >> shallalist.conf
-#cat BL/music/domains >> shallalist.conf
-#cat BL/news/domains >> shallalist.conf
-#cat BL/podcasts/domains >> shallalist.conf
-#cat BL/politics/domains >> shallalist.conf
-cat BL/porn/domains >> shallalist.conf
-#cat BL/radiotv/domains >> shallalist.conf
-#cat BL/recreation/humor/domains >> shallalist.conf
-#cat BL/recreation/martialarts/domains >> shallalist.conf
-#cat BL/recreation/restaurants/domains >> shallalist.conf
-#cat BL/recreation/sports/domains >> shallalist.conf
-#cat BL/recreation/travel/domains >> shallalist.conf
-#cat BL/recreation/wellness/domains >> shallalist.conf
-#cat BL/redirector/domains >> shallalist.conf
-#cat BL/religion/domains >> shallalist.conf
-#cat BL/remotecontrol/domains >> shallalist.conf
-#cat BL/ringtones/domains >> shallalist.conf
-#cat BL/science/astronomy/domains >> shallalist.conf
-#cat BL/science/chemistry/domains >> shallalist.conf
-#cat BL/searchengines/domains >> shallalist.conf
-cat BL/sex/education/domains >> shallalist.conf
-cat BL/sex/lingerie/domains >> shallalist.conf
-#cat BL/shopping/domains >> shallalist.conf
-#cat BL/socialnet/domains >> shallalist.conf
-#cat BL/spyware/domains >> shallalist.conf
-cat BL/tracker/domains >> shallalist.conf
-#cat BL/updatesites/domains >> shallalist.conf
-#cat BL/urlshortener/domains >> shallalist.conf
-cat BL/violence/domains >> shallalist.conf
-cat BL/warez/domains >> shallalist.conf
-#cat BL/weapons/domains >> shallalist.conf
-#cat BL/webmail/domains >> shallalist.conf
-#cat BL/webphone/domains >> shallalist.conf
-#cat BL/webradio/domains >> shallalist.conf
-#cat BL/webtv/domains >> shallalist.conf
-
-#-------------------------------------#
-# Squid blacklist
-#-------------------------------------#
-
-wget https://www.squidblacklist.org/downloads/dg-ads.acl
-mv dg-ads.acl dg-ads.conf
+touch shallalist.txt
+#cat BL/adv/domains >> shallalist.txt
+cat BL/aggressive/domains >> shallalist.txt
+cat BL/alcohol/domains >> shallalist.txt
+cat BL/anonvpn/domains >> shallalist.txt
+#cat BL/automobile/bikes/domains >> shallalist.txt
+#cat BL/automobile/boats/domains >> shallalist.txt
+#cat BL/automobile/cars/domains >> shallalist.txt
+#cat BL/automobile/planes/domains >> shallalist.txt
+#cat BL/chat/domains >> shallalist.txt
+cat BL/costtraps/domains >> shallalist.txt
+cat BL/dating/domains >> shallalist.txt
+#cat BL/downloads/domains >> shallalist.txt
+cat BL/drugs/domains >> shallalist.txt
+#cat BL/dynamic/domains >> shallalist.txt
+#cat BL/education/schools/domains >> shallalist.txt
+#cat BL/finance/banking/domains >> shallalist.txt
+#cat BL/finance/insurance/domains >> shallalist.txt
+#cat BL/finance/moneylending/domains >> shallalist.txt
+#cat BL/finance/other/domains >> shallalist.txt
+#cat BL/finance/realestate/domains >> shallalist.txt
+#cat BL/finance/trading/domains >> shallalist.txt
+#cat BL/fortunetelling/domains >> shallalist.txt
+#cat BL/forum/domains >> shallalist.txt
+#cat BL/gamble/domains >> shallalist.txt
+#cat BL/government/domains >> shallalist.txt
+#cat BL/hacking/domains >> shallalist.txt
+#cat BL/hobby/cooking/domains >> shallalist.txt
+#cat BL/hobby/games-misc/domains >> shallalist.txt
+#cat BL/hobby/games-online/domains >> shallalist.txt
+#cat BL/hobby/gardening/domains >> shallalist.txt
+#cat BL/hobby/pets/domains >> shallalist.txt
+#cat BL/homestyle/domains >> shallalist.txt
+#cat BL/hospitals/domains >> shallalist.txt
+#cat BL/imagehosting/domains >> shallalist.txt
+#cat BL/isp/domains >> shallalist.txt
+#cat BL/jobsearch/domains >> shallalist.txt
+#cat BL/library/domains >> shallalist.txt
+#cat BL/military/domains >> shallalist.txt
+#cat BL/models/domains >> shallalist.txt
+#cat BL/movies/domains >> shallalist.txt
+#cat BL/music/domains >> shallalist.txt
+#cat BL/news/domains >> shallalist.txt
+#cat BL/podcasts/domains >> shallalist.txt
+#cat BL/politics/domains >> shallalist.txt
+cat BL/porn/domains >> shallalist.txt
+#cat BL/radiotv/domains >> shallalist.txt
+#cat BL/recreation/humor/domains >> shallalist.txt
+#cat BL/recreation/martialarts/domains >> shallalist.txt
+#cat BL/recreation/restaurants/domains >> shallalist.txt
+#cat BL/recreation/sports/domains >> shallalist.txt
+#cat BL/recreation/travel/domains >> shallalist.txt
+#cat BL/recreation/wellness/domains >> shallalist.txt
+#cat BL/redirector/domains >> shallalist.txt
+#cat BL/religion/domains >> shallalist.txt
+#cat BL/remotecontrol/domains >> shallalist.txt
+#cat BL/ringtones/domains >> shallalist.txt
+#cat BL/science/astronomy/domains >> shallalist.txt
+#cat BL/science/chemistry/domains >> shallalist.txt
+#cat BL/searchengines/domains >> shallalist.txt
+cat BL/sex/education/domains >> shallalist.txt
+cat BL/sex/lingerie/domains >> shallalist.txt
+#cat BL/shopping/domains >> shallalist.txt
+#cat BL/socialnet/domains >> shallalist.txt
+#cat BL/spyware/domains >> shallalist.txt
+cat BL/tracker/domains >> shallalist.txt
+#cat BL/updatesites/domains >> shallalist.txt
+#cat BL/urlshortener/domains >> shallalist.txt
+cat BL/violence/domains >> shallalist.txt
+#cat BL/warez/domains >> shallalist.txt
+#cat BL/weapons/domains >> shallalist.txt
+#cat BL/webmail/domains >> shallalist.txt
+#cat BL/webphone/domains >> shallalist.txt
+#cat BL/webradio/domains >> shallalist.txt
+#cat BL/webtv/domains >> shallalist.txt
 
 #-------------------------------------#
 # Firebog privacy list 
 #-------------------------------------#
 
 wget https://v.firebog.net/hosts/Easyprivacy.txt
-mv Easyprivacy.txt easyprivacy.conf
 
 #-------------------------------------#
 # Firebog ads list 
 #-------------------------------------#
 
 wget https://v.firebog.net/hosts/Prigent-Ads.txt
-mv Prigent-Ads.txt prigent-ads.conf
 
 #-------------------------------------#
 # NoTrack Tracker Blocklist 
 #-------------------------------------#
 
 wget https://gitlab.com/quidsup/notrack-blocklists/raw/master/notrack-blocklist.txt
-mv notrack-blocklist.txt notrack-blocklist.conf
 
 #-------------------------------------#
-# Misc
+# Misc personal stuff
 #-------------------------------------#
 
-touch misc.conf
+touch misc.txt
 
 # Add anti Nvidia telemetry.
-echo "address=/gfswl.geforce.com/0.0.0.0" >> misc.conf
-echo "address=/telemetry.nvidia.com/0.0.0.0" >> misc.conf
-echo "address=/gfe.nvidia.com/0.0.0.0" >> misc.conf
-echo "address=/telemetry-dce.gfe.nvidia.com/0.0.0.0" >> misc.conf
-echo "address=/events-dc1.gfe.nvidia.com/0.0.0.0" >> misc.conf
+echo '0.0.0.0 gfswl.geforce.com' >> misc.txt
+echo '0.0.0.0 telemetry.nvidia.com' >> misc.txt
+echo '0.0.0.0 gfe.nvidia.com' >> misc.txt
+echo '0.0.0.0 telemetry-dce.gfe.nvidia.com' >> misc.txt
+echo '0.0.0.0 events-dc1.gfe.nvidia.com' >> misc.txt
 
 # Add some homemade entries.
-echo "address=/yandex.com/0.0.0.0" >> misc.conf
-echo "address=/cpy-crack.net/0.0.0.0" >> misc.conf
-echo "address=/ovpn.com/0.0.0.0" >> misc.conf
-echo "address=/ssl.google-analytics.com/0.0.0.0" >> misc.conf
+echo '0.0.0.0 yandex.com' >> misc.txt
+echo '0.0.0.0 cpy-crack.net' >> misc.txt
+echo '0.0.0.0 ovpn.com' >> misc.txt
+echo '0.0.0.0 ssl.google-analytics.com' >> misc.txt
 
 # Windows 10 performs regular lookups to these domains.
-echo "address=/canonicalizer.ucsuri.tcs/0.0.0.0" >> misc.conf
-echo "address=/ctldl.windowsupdate.com/0.0.0.0" >> misc.conf
+echo '0.0.0.0 canonicalizer.ucsuri.tcs' >> misc.txt
+echo '0.0.0.0 ctldl.windowsupdate.com' >> misc.txt
 
 #-------------------------------------#
 # Clean up
 #-------------------------------------#
 
-# Remove all IP only lines.
-sed -i -e 's/[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}//g' *.conf
-
-# Delete empty lines or blank lines.
-sed -i -e '/^$/d' *.conf
-
-# Delete lines that begin with #.
-sed -i -e '/^#/d' *.conf
-
-# Remove the dot from lines that begins with a dot.
-sed -i -e 's/^\.//' *.conf
-
-# Fix a mistake in the Shalla list warez zone.
-sed -i -e 's#tpb"#tpb#'  *.conf
-
-# Delete other specific lines.
-sed -i -e '/^::/d' *.conf
-sed -i -e '/^127.0.0.1/d' *.conf
-sed -i -e '/^255.255.255.255/d' *.conf
-sed -i -e '/^ff0/d' *.conf
-sed -i -e '/^fe80/d' *.conf
-sed -i -e 's#0.0.0.0 ##' *.conf
-sed -i -e 's#0.0.0.0 0.0.0.0##' *.conf
-sed -i -e '/--/d' *.conf
-sed -i -e '/-./d' *.conf
-
-# Remove inline comments.
-sed -i -e 's/#.*$//' *.conf
-
-# Remove PIA from any list because we want that.
-sed -i '/privateinternetaccess.com/d' *.conf
-
 # Remove domains with non-printable characters.
 # Use "LANG=C" to avoid a "Invalid collation character" error with sed.
-LANG=C sed -i -e 's/[\d128-\d255]//g' *.conf
+LANG=C sed -i -e 's/[\d128-\d255]//g' *.txt
 
-# Remove left over white space.
-sed -i 's/ //g' *.conf
+# Delete other specific lines we don't need.
+sed -i -e '/^::1/d' *.txt
+sed -i -e '/^127.0.0.1/d' *.txt
+sed -i -e '/^255.255.255.255/d' *.txt
+sed -i -e '/^ff0/d' *.txt
+sed -i -e '/^fe80/d' *.txt
+sed -i -e 's#0\.0\.0\.0 0\.0\.0\.0##' *.txt
 
-# Change into Dnsmasq format.
-sed -i -e 's#^#address=/#; s#$#/0.0.0.0#' *.conf
+# Remove all comment only lines.
+sed -i -e '/^#/d' *.txt
 
-# Remove any duplicate entries.
+# Remove all IP only lines from Shallalist.
+sed -i -e 's/[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}//g' shallalist.txt
 
-# The old solution was to combine all files into one and then use awk:
-# awk '!seen[$0]++' tmp.conf > dnsmasq-blacklist.conf
-# By using this for loop we keep the different files separated and still
-# prevent the occurrence of duplicate entries.
+# Remove the dot from lines that begins with a dot in Shallalist.
+sed -i -e 's/^\.//g' shallalist.txt
 
-# This is CPU and memory expensive.
-temp=$(mktemp)
-for file_to_dedupe in $(echo *.conf|sort)
-do
-   for file_to_strip in *.conf
-   do
-      [ "$file_to_dedupe" == "$file_to_strip" ] && continue
-      grep -w -Ff ${file_to_dedupe} -v ${file_to_strip} > ${temp}
-      mv ${temp} ${file_to_strip}
-   done
-done
+# Remove PIA from Shallalist.
+sed -i '/privateinternetaccess.com/d' shallalist.txt
 
-mv *.conf ../config-files/
+# Delete left over blank lines from Shallalist.
+sed -i -e '/^$/d' shallalist.txt
+
+# Change Shallalist to hosts format.
+sed -i -e 's#^#0.0.0.0 #g' shallalist.txt
+
+# Change Easyprivacy to hosts format.
+sed -i -e 's#^#0.0.0.0 #g' Easyprivacy.txt
+
+# Change Prigent-Ads to hosts format.
+sed -i -e 's#^#0.0.0.0 #g' Prigent-Ads.txt
+
+# Change NoTrack to hosts format.
+sed -i -e 's#^#0.0.0.0 #g' notrack-blocklist.txt
+
+# Combine all files into one and remove duplicate entries.
+awk '!seen[$0]++' *.txt > combined-hosts.txt
+
+# Delete empty lines or blank lines.
+sed -i -e '/^$/d' combined-hosts.txt
+
+mv combined-hosts.txt ../hosts-files/
 
 echo ""
-echo "Put all the *.conf files from the 'config-files' directory into"
-echo "/etc/dnsmasq.d/"
+echo "Put the combined-hosts.txt file from the 'hosts-files' directory into"
+echo "a directory Dnsmasq can read and use it with the 'addn-hosts' option."
 echo ""
 echo "Restart dnsmasq and remember to check the log!"
 echo ""
