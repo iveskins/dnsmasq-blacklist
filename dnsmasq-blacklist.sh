@@ -1,5 +1,10 @@
 #!/bin/sh
 
+# Please note that this script currently generates a huge block list with more
+# than 3 million domains! Dnsmasq can handle this extremely well, but it does
+# utilize some CPU during initial loading of the list and the list takes up
+# about 380 MB of memory.
+
 # Remove files from last run (if any).
 if [[ -d 'hosts-files' ]]; then
     rm hosts-files/*
@@ -12,6 +17,14 @@ else
     mkdir tmp
 fi
 cd tmp
+
+#-------------------------------------#
+# Chad Mayfield's pi-hole heavy list
+#-------------------------------------#
+
+# https://github.com/chadmayfield/my-pihole-blocklists
+wget https://raw.githubusercontent.com/chadmayfield/pihole-blocklists/master/lists/pi_blocklist_porn_all.list
+mv pi_blocklist_porn_all.list pi_blocklist_porn_all.txt
 
 #-------------------------------------#
 # Energized Protection
@@ -37,7 +50,7 @@ rm update.txt extra.txt
 # Shallalist
 #-------------------------------------#
 
-# Uncomment the lists you need.
+# Uncomment the domains you need from Shallalist.
 
 wget http://www.shallalist.de/Downloads/shallalist.tar.gz
 tar -xzvf shallalist.tar.gz
@@ -167,7 +180,7 @@ echo '0.0.0.0 ctldl.windowsupdate.com' >> misc.txt
 # Use "LANG=C" to avoid a "Invalid collation character" error with sed.
 LANG=C sed -i -e 's/[\d128-\d255]//g' *.txt
 
-# Delete other specific lines we don't need.
+# Delete specific lines we don't want.
 sed -i -e '/^::1/d' *.txt
 sed -i -e '/^127.0.0.1/d' *.txt
 sed -i -e '/^255.255.255.255/d' *.txt
@@ -175,44 +188,52 @@ sed -i -e '/^ff0/d' *.txt
 sed -i -e '/^fe80/d' *.txt
 sed -i -e 's#0\.0\.0\.0 0\.0\.0\.0##' *.txt
 
+# Remove all domains beginning with a minus sign.
+sed -i -e '/^-/d' *.txt
+
+# Remove all domains containing multiple minus signs.
+sed -i -e '/--/d' *.txt
+
+# Remove all domains with a minus sign followed by a dot.
+sed -i -e '/-\./d' *.txt
+
+# Remove the dot from lines that begins with a dot.
+sed -i -e 's/^\.//g' *.txt
+
 # Remove all comment only lines.
 sed -i -e '/^#/d' *.txt
 
 # Remove all IP only lines from Shallalist.
 sed -i -e 's/[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}//g' shallalist.txt
 
-# Remove the dot from lines that begins with a dot in Shallalist.
-sed -i -e 's/^\.//g' shallalist.txt
-
 # Remove PIA from Shallalist.
 sed -i '/privateinternetaccess.com/d' shallalist.txt
 
-# Delete left over blank lines from Shallalist.
-sed -i -e '/^$/d' shallalist.txt
+# Delete all blank lines.
+sed -i -e '/^$/d' *.txt
 
-# Change Shallalist to hosts format.
-sed -i -e 's#^#0.0.0.0 #g' shallalist.txt
+# Change all non-hosts format lists to hosts format.
+sed -i -e '/^0\.0\.0\.0/! s/^/0.0.0.0 /g' *.txt
 
-# Change Easyprivacy to hosts format.
-sed -i -e 's#^#0.0.0.0 #g' Easyprivacy.txt
+# Fix some minor left-over issues.
+# Remove the dot from lines that begins with a dot.
+sed -i -e 's/^0\.0.\0.\0 \./0.0.0.0 /g' *.txt
 
-# Change Prigent-Ads to hosts format.
-sed -i -e 's#^#0.0.0.0 #g' Prigent-Ads.txt
+# Remove the minus from lines that begins with a minux.
+sed -i -e 's/^0\.0.\0.\0 -/0.0.0.0 /g' *.txt
 
-# Change NoTrack to hosts format.
-sed -i -e 's#^#0.0.0.0 #g' notrack-blocklist.txt
+# Currently the combined lists holds more that 550.000 duplicate entries, but
+# Dnsmasq automatically removes any duplicate hosts from its cache
+# (see cache.c:979), so there is no need to remove the duplicate by this
+# script. But in case it is needed, the fastest solution is to combine all the
+# lists into one file using awk.
+# awk '!seen[$0]++' *.txt > hosts-block-list.txt
 
-# Combine all files into one and remove duplicate entries.
-awk '!seen[$0]++' *.txt > combined-hosts.txt
-
-# Delete empty lines or blank lines.
-sed -i -e '/^$/d' combined-hosts.txt
-
-mv combined-hosts.txt ../hosts-files/
+mv *.txt ../hosts-files/
 
 echo ""
-echo "Put the combined-hosts.txt file from the 'hosts-files' directory into"
-echo "a directory Dnsmasq can read and use it with the 'addn-hosts' option."
+echo "Put the files from the 'hosts-files' directory into a directory that"
+echo "Dnsmasq can read and use it with the 'addn-hosts' option."
 echo ""
 echo "Restart dnsmasq and remember to check the log!"
 echo ""
