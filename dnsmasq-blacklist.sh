@@ -203,6 +203,11 @@ sed -i -e 's/^\.//g' *.txt
 # Remove all comment only lines.
 sed -i -e '/^#/d' *.txt
 
+# Remove NZB stuff from Energized.
+sed -i -e '/api.nzbgeek.info/d' energized.txt
+sed -i -e '/api.nzbplanet.net/d' energized.txt
+sed -i -e '/api.nzb.su/d' energized.txt
+
 # Remove all IP only lines from Shallalist.
 sed -i -e 's/[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}//g' shallalist.txt
 
