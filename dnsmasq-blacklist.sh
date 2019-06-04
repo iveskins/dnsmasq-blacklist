@@ -156,11 +156,10 @@ echo '0.0.0.0 events-dc1.gfe.nvidia.com' >> misc.txt
 
 # Add some homemade entries.
 echo '0.0.0.0 yandex.com' >> misc.txt
+echo '0.0.0.0 bing.com' >> misc.txt
 echo '0.0.0.0 cpy-crack.net' >> misc.txt
 echo '0.0.0.0 ovpn.com' >> misc.txt
 echo '0.0.0.0 ssl.google-analytics.com' >> misc.txt
-
-# Windows 10 performs regular lookups to these domains.
 echo '0.0.0.0 canonicalizer.ucsuri.tcs' >> misc.txt
 echo '0.0.0.0 ctldl.windowsupdate.com' >> misc.txt
 
