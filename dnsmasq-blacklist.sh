@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# TODO: Make this POSIX compliant!
+
 # Please note that this script currently generates a huge block list with more
 # than 3 million domains! Dnsmasq can handle this extremely well, but it does
 # utilize some CPU during initial loading of the list and the list takes up
