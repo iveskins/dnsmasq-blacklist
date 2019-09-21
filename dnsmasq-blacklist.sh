@@ -158,7 +158,6 @@ echo '0.0.0.0 events-dc1.gfe.nvidia.com' >> misc.txt
 
 # Add some homemade entries.
 echo '0.0.0.0 yandex.com' >> misc.txt
-echo '0.0.0.0 bing.com' >> misc.txt
 echo '0.0.0.0 cpy-crack.net' >> misc.txt
 echo '0.0.0.0 ovpn.com' >> misc.txt
 echo '0.0.0.0 ssl.google-analytics.com' >> misc.txt
@@ -201,6 +200,9 @@ sed -i -e 's/[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}//g' shallali
 
 # Remove PIA from Shallalist.
 sed -i '/privateinternetaccess.com/d' shallalist.txt
+
+# Remove Gleam from notrack-blocklist.txt
+sed -i '/gleam.io/d' notrack-blocklist.txt
 
 # Delete all blank lines.
 sed -i -e '/^$/d' *.txt
