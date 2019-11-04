@@ -163,6 +163,10 @@ echo '0.0.0.0 ovpn.com' >> misc.txt
 echo '0.0.0.0 ssl.google-analytics.com' >> misc.txt
 echo '0.0.0.0 canonicalizer.ucsuri.tcs' >> misc.txt
 echo '0.0.0.0 ctldl.windowsupdate.com' >> misc.txt
+echo '0.0.0.0 adobe.com' >> misc.txt
+echo '0.0.0.0 adobeereg.com' >> misc.txt
+echo '0.0.0.0 hh-software.com' >> misc.txt
+echo '0.0.0.0 adobe.de' >> misc.txt
 
 #-------------------------------------#
 # Clean up
