@@ -175,7 +175,7 @@ wget https://v.firebog.net/hosts/Prigent-Ads.txt
 wget https://gitlab.com/quidsup/notrack-blocklists/raw/master/notrack-blocklist.txt
 
 #-------------------------------------#
-# Misc personal stuff
+# Misc
 #-------------------------------------#
 
 touch misc.txt
@@ -238,12 +238,6 @@ sed -i -e '/^#/d' *.txt
 # Remove all IP only lines from Shallalist.
 sed -i -e 's/[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}//g' shallalist.txt
 
-# Remove PIA.
-sed -i '/privateinternetaccess.com/d' *.txt
-
-# Remove Gleam.
-sed -i '/gleam.io/d' *.txt
-
 # Delete all blank lines.
 sed -i -e '/^$/d' *.txt
 
@@ -256,6 +250,14 @@ sed -i -e 's/^0\.0.\0.\0 \./0.0.0.0 /g' *.txt
 
 # Remove the minus from lines that begins with a minux.
 sed -i -e 's/^0\.0.\0.\0 -/0.0.0.0 /g' *.txt
+
+#-------------------------------------#
+# Whitelist
+#-------------------------------------#
+
+sed -i -e '/privateinternetaccess.com$/d' *.txt
+sed -i -e '/gleam.io/d' *.txt
+sed -i -e '/bit.ly$/d' *.txt
 
 # Currently the combined lists holds more that 550.000 duplicate entries, but
 # Dnsmasq automatically removes any duplicate hosts from its cache
