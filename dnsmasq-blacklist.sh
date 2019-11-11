@@ -30,9 +30,9 @@ mv pi_blocklist_porn_all.list pi_blocklist_porn_all.txt
 # Crazy Max Microsoft telemetry
 #-------------------------------------#
 
-wget https://github.com/crazy-max/WindowsSpyBlocker/blob/master/data/hosts/extra.txt
-wget https://github.com/crazy-max/WindowsSpyBlocker/blob/master/data/hosts/spy.txt
-wget https://github.com/crazy-max/WindowsSpyBlocker/blob/master/data/hosts/update.txt
+wget https://raw.githubusercontent.com/crazy-max/WindowsSpyBlocker/master/data/hosts/extra.txt
+wget https://raw.githubusercontent.com/crazy-max/WindowsSpyBlocker/master/data/hosts/spy.txt
+wget https://raw.githubusercontent.com/crazy-max/WindowsSpyBlocker/master/data/hosts/update.txt
 mv spy.txt crazy-max.txt
 cat update.txt >> crazy-max.txt
 cat extra.txt >> crazy-max.txt
