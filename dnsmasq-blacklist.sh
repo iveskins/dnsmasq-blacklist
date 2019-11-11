@@ -1,24 +1,22 @@
 #!/bin/sh
 
-# TODO: Make this POSIX compliant!
-
 # Please note that this script currently generates a huge block list with more
 # than 3 million domains! Dnsmasq can handle this extremely well, but it does
 # utilize some CPU during initial loading of the list and the list takes up
 # about 380 MB of memory.
 
 # Remove files from last run (if any).
-if [[ -d 'hosts-files' ]]; then
+if [ -d 'hosts-files' ]; then
     rm hosts-files/*
 else
     mkdir hosts-files
 fi
-if [[ -d 'tmp' ]]; then
+if [ -d 'tmp' ]; then
     rm -rf tmp/*
 else
     mkdir tmp
 fi
-cd tmp
+cd tmp || exit
 
 #-------------------------------------#
 # Chad Mayfield's pi-hole heavy list
@@ -32,9 +30,9 @@ mv pi_blocklist_porn_all.list pi_blocklist_porn_all.txt
 # Crazy Max Microsoft telemetry
 #-------------------------------------#
 
-wget http://winspyblocker.crazyws.fr/data/hosts/spy.txt
-wget http://winspyblocker.crazyws.fr/data/hosts/update.txt
-wget http://winspyblocker.crazyws.fr/data/hosts/extra.txt
+wget https://github.com/crazy-max/WindowsSpyBlocker/blob/master/data/hosts/extra.txt
+wget https://github.com/crazy-max/WindowsSpyBlocker/blob/master/data/hosts/spy.txt
+wget https://github.com/crazy-max/WindowsSpyBlocker/blob/master/data/hosts/update.txt
 mv spy.txt crazy-max.txt
 cat update.txt >> crazy-max.txt
 cat extra.txt >> crazy-max.txt
@@ -50,7 +48,7 @@ wget http://www.shallalist.de/Downloads/shallalist.tar.gz
 tar -xzvf shallalist.tar.gz
 
 touch shallalist.txt
-#cat BL/adv/domains >> shallalist.txt
+cat BL/adv/domains >> shallalist.txt
 cat BL/aggressive/domains >> shallalist.txt
 cat BL/alcohol/domains >> shallalist.txt
 cat BL/anonvpn/domains >> shallalist.txt

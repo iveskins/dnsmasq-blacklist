@@ -8,4 +8,6 @@ A small shell script that creates a bunch of DNS blacklist for Dnsmasq.
 
 Please note that some of the regular expressions in the script are CPU and memory hungry. If you run Dnsmasq on a slow device you're adviced to run this script on a faster computer and then transfer the resulting files.
 
+More list can be found at [The Firebog](https://firebog.net/)
+
 Feel free to contribute!
