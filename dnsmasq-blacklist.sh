@@ -124,15 +124,48 @@ cat BL/violence/domains >> shallalist.txt
 #cat BL/webtv/domains >> shallalist.txt
 
 #-------------------------------------#
+# Firebog suspicious list 
+#-------------------------------------#
+
+wget https://v.firebog.net/hosts/Cameleon.txt
+wget https://v.firebog.net/hosts/Dshield-Sus.txt
+wget https://v.firebog.net/hosts/HostsFileOrg.txt
+wget https://v.firebog.net/hosts/Kowabit.txt
+wget https://v.firebog.net/hosts/Mahakala.txt
+wget https://v.firebog.net/hosts/JoeyLane.txt
+wget https://v.firebog.net/hosts/PeterLowe.txt
+wget https://v.firebog.net/hosts/PiwikSpam.txt
+wget https://v.firebog.net/hosts/ReddestDream.txt
+wget https://v.firebog.net/hosts/SBDead.txt
+wget https://v.firebog.net/hosts/SBKAD.txt
+wget https://v.firebog.net/hosts/SBSpam.txt
+wget https://v.firebog.net/hosts/SomeoneWC.txt
+wget https://v.firebog.net/hosts/Spam404.txt
+wget https://v.firebog.net/hosts/Vokins.txt
+wget https://v.firebog.net/hosts/Winhelp2002.txt
+
+#-------------------------------------#
 # Firebog privacy list 
 #-------------------------------------#
 
+wget https://v.firebog.net/hosts/Airelle-trc.txt
+wget https://v.firebog.net/hosts/Disconnect-trc.txt
+wget https://v.firebog.net/hosts/Disconnect-mal.txt
 wget https://v.firebog.net/hosts/Easyprivacy.txt
+wget https://v.firebog.net/hosts/Quidsup-trc.txt
+wget https://v.firebog.net/hosts/SB2o7Net.txt
 
 #-------------------------------------#
 # Firebog ads list 
 #-------------------------------------#
 
+wget https://v.firebog.net/hosts/AdAway.txt
+wget https://v.firebog.net/hosts/Disconnect-ads.txt
+wget https://v.firebog.net/hosts/HPHosts-ads.txt
+wget https://v.firebog.net/hosts/Easylist.txt
+wget https://v.firebog.net/hosts/Easylist-Dutch.txt
+wget https://v.firebog.net/hosts/SBUnchecky.txt
+wget https://v.firebog.net/hosts/AdguardDNS.txt
 wget https://v.firebog.net/hosts/Prigent-Ads.txt
 
 #-------------------------------------#
@@ -181,6 +214,11 @@ sed -i -e '/^255.255.255.255/d' *.txt
 sed -i -e '/^ff0/d' *.txt
 sed -i -e '/^fe80/d' *.txt
 sed -i -e 's#0\.0\.0\.0 0\.0\.0\.0##' *.txt
+sed -i -e '/^localhost/d' *.txt
+sed -i -e '/^localhost.localdomain/d' *.txt
+sed -i -e '/^android/d' *.txt
+sed -i -e '/^test/d' *.txt
+sed -i -e '/^testing/d' *.txt
 
 # Remove all domains beginning with a minus sign.
 sed -i -e '/^-/d' *.txt
@@ -200,11 +238,11 @@ sed -i -e '/^#/d' *.txt
 # Remove all IP only lines from Shallalist.
 sed -i -e 's/[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}//g' shallalist.txt
 
-# Remove PIA from Shallalist.
-sed -i '/privateinternetaccess.com/d' shallalist.txt
+# Remove PIA.
+sed -i '/privateinternetaccess.com/d' *.txt
 
-# Remove Gleam from notrack-blocklist.txt
-sed -i '/gleam.io/d' notrack-blocklist.txt
+# Remove Gleam.
+sed -i '/gleam.io/d' *.txt
 
 # Delete all blank lines.
 sed -i -e '/^$/d' *.txt
