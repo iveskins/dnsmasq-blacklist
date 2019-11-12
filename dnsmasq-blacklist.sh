@@ -276,5 +276,5 @@ echo "Restart dnsmasq and remember to check the log!"
 echo ""
 echo "If you want to change the default IP from 0.0.0.0 to say"
 echo "192.168.1.1, you can use the following sed command:"
-echo "sed -i -e "s/0\.0\.0\.0/192\.168\.1\.1/" *.txt"
+echo 'sed -i -e "s/0\.0\.0\.0/192\.168\.1\.1/" *.txt'
 echo ""
