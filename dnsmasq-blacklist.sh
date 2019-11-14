@@ -258,6 +258,10 @@ sed -i -e 's/^0\.0.\0.\0 -/0.0.0.0 /g' *.txt
 sed -i -e '/privateinternetaccess.com$/d' *.txt
 sed -i -e '/gleam.io/d' *.txt
 sed -i -e '/bit.ly$/d' *.txt
+sed -i -e '/cloudflare.com$/d' *.txt
+sed -i -e '/streamelements.com$/d' *.txt
+sed -i -e '/googletagmanager.com$/d' *.txt
+sed -i -e '/googleapis.com$/d' *.txt
 
 # Currently the combined lists holds more that 550.000 duplicate entries, but
 # Dnsmasq automatically removes any duplicate hosts from its cache
