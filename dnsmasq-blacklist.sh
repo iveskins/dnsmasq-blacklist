@@ -199,7 +199,8 @@ echo '0.0.0.0 adobe.com' >> misc.txt
 echo '0.0.0.0 adobeereg.com' >> misc.txt
 echo '0.0.0.0 hh-software.com' >> misc.txt
 echo '0.0.0.0 adobe.de' >> misc.txt
-echo '0.0.0.0 azureedge.net' >> misc.txt # Microsoft.
+echo '0.0.0.0 azureedge.net' >> misc.txt
+echo '0.0.0.0 t.checkappexec.microsoft.com' >> misc.txt
 
 #-------------------------------------#
 # Clean up
