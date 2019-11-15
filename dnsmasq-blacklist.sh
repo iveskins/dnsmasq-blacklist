@@ -186,6 +186,7 @@ echo '0.0.0.0 telemetry.nvidia.com' >> misc.txt
 echo '0.0.0.0 gfe.nvidia.com' >> misc.txt
 echo '0.0.0.0 telemetry-dce.gfe.nvidia.com' >> misc.txt
 echo '0.0.0.0 events-dc1.gfe.nvidia.com' >> misc.txt
+echo '0.0.0.0 services.gfe.nvidia.com' >> misc.txt
 
 # Add some homemade entries.
 echo '0.0.0.0 yandex.com' >> misc.txt
