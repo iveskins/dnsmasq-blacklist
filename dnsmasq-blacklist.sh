@@ -266,6 +266,7 @@ sed -i -e '/\.streamelements.com$/d' *.txt
 sed -i -e '/\.googletagmanager.com$/d' *.txt
 sed -i -e '/\.googleapis.com$/d' *.txt
 sed -i -e '/\.one.com$/d' *.txt
+sed -i -e '/\.videolan.org/d' *.txt
 
 # Currently the combined lists holds more that 550.000 duplicate entries, but
 # Dnsmasq automatically removes any duplicate hosts from its cache
