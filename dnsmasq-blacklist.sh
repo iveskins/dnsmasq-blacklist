@@ -200,6 +200,7 @@ echo '0.0.0.0 hh-software.com' >> misc.txt
 echo '0.0.0.0 adobe.de' >> misc.txt
 echo '0.0.0.0 azureedge.net' >> misc.txt
 echo '0.0.0.0 t.checkappexec.microsoft.com' >> misc.txt
+echo '0.0.0.0 liberation.eulerian.net' >> misc
 
 #-------------------------------------#
 # Clean up
