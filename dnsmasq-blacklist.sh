@@ -258,8 +258,7 @@ sed -i -e 's/^0\.0.\0.\0 -/0.0.0.0 /g' *.txt
 # Whitelist
 #-------------------------------------#
 
-sed -i -e '/\.privateinternetaccess.com$/d' *.txt
-sed -i -e '/\.gleam.io$/d' *.txt
+sed -i -e '/0.0.0.0 gleam.io/d' *.txt # Also remove the comment from notrack-blocklist.txt
 sed -i -e '/\.bit.ly$/d' *.txt
 sed -i -e '/\.cloudflare.com$/d' *.txt
 sed -i -e '/\.streamelements.com$/d' *.txt
