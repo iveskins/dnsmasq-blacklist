@@ -264,6 +264,7 @@ sed -i -e '/\.cloudflare.com$/d' *.txt
 sed -i -e '/\.streamelements.com$/d' *.txt
 sed -i -e '/0.0.0.0 googletagmanager.com$/d' *.txt
 sed -i -e '/0.0.0.0 dba.dk$/d' *.txt
+sed -i -e '/\.dba.dk$/d' *.txt
 sed -i -e '/\.googleapis.com$/d' *.txt
 sed -i -e '/\.one.com$/d' *.txt
 sed -i -e '/\.videolan.org/d' *.txt
