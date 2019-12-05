@@ -260,6 +260,7 @@ sed -i -e 's/^0\.0.\0.\0 -/0.0.0.0 /g' *.txt
 
 sed -i -e '/0.0.0.0 gleam.io/d' *.txt # Also remove the comment from notrack-blocklist.txt
 sed -i -e '/0.0.0.0 bit.ly$/d' *.txt
+sed -i -e '/0.0.0.0 www.bit.ly$/d' *.txt
 sed -i -e '/\.cloudflare.com$/d' *.txt
 sed -i -e '/\.streamelements.com$/d' *.txt
 sed -i -e '/0.0.0.0 googletagmanager.com$/d' *.txt
