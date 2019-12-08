@@ -273,6 +273,9 @@ sed -i -e '/\.one.com$/d' *.txt
 sed -i -e '/\.videolan.org/d' *.txt
 sed -i -e '/download.microsoft.com/d' *.txt
 
+# Epic games doesn't work without their tracker.
+sed -i -e '/0.0.0.0 tracking.epicgames.com/d' *.txt
+
 # Currently the combined lists holds more that 550.000 duplicate entries, but
 # Dnsmasq automatically removes any duplicate hosts from its cache
 # (see cache.c:979), so there is no need to remove the duplicate by this
