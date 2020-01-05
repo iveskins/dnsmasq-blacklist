@@ -272,6 +272,9 @@ sed -i -e '/\.googleapis.com$/d' *.txt
 sed -i -e '/\.one.com$/d' *.txt
 sed -i -e '/\.videolan.org/d' *.txt
 sed -i -e '/download.microsoft.com/d' *.txt
+sed -i -e '/0.0.0.0 ikea.dk$/d' *.txt
+sed -i -e '/0.0.0.0 ikea.se$/d' *.txt
+sed -i -e '/0.0.0.0 s3.amazonaws.com$/d' *.txt
 
 # Epic games doesn't work without their tracker.
 sed -i -e '/0.0.0.0 tracking.epicgames.com/d' *.txt
@@ -291,7 +294,4 @@ echo "Dnsmasq can read and use it with the 'addn-hosts' option."
 echo ""
 echo "Restart dnsmasq and remember to check the log!"
 echo ""
-echo "If you want to change the default IP from 0.0.0.0 to say"
-echo "192.168.1.1, you can use the following sed command:"
-echo 'sed -i -e "s/0\.0\.0\.0/192\.168\.1\.1/" *.txt'
-echo ""
+
