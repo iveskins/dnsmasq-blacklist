@@ -48,19 +48,19 @@ wget http://www.shallalist.de/Downloads/shallalist.tar.gz
 tar -xzvf shallalist.tar.gz
 
 touch shallalist.txt
-cat BL/adv/domains >> shallalist.txt
-cat BL/aggressive/domains >> shallalist.txt
-cat BL/alcohol/domains >> shallalist.txt
-cat BL/anonvpn/domains >> shallalist.txt
+#cat BL/adv/domains >> shallalist.txt
+#cat BL/aggressive/domains >> shallalist.txt
+#cat BL/alcohol/domains >> shallalist.txt
+#cat BL/anonvpn/domains >> shallalist.txt
 #cat BL/automobile/bikes/domains >> shallalist.txt
 #cat BL/automobile/boats/domains >> shallalist.txt
 #cat BL/automobile/cars/domains >> shallalist.txt
 #cat BL/automobile/planes/domains >> shallalist.txt
 #cat BL/chat/domains >> shallalist.txt
-cat BL/costtraps/domains >> shallalist.txt
+#cat BL/costtraps/domains >> shallalist.txt
 cat BL/dating/domains >> shallalist.txt
 #cat BL/downloads/domains >> shallalist.txt
-cat BL/drugs/domains >> shallalist.txt
+#cat BL/drugs/domains >> shallalist.txt
 #cat BL/dynamic/domains >> shallalist.txt
 #cat BL/education/schools/domains >> shallalist.txt
 #cat BL/finance/banking/domains >> shallalist.txt
@@ -112,7 +112,7 @@ cat BL/sex/lingerie/domains >> shallalist.txt
 #cat BL/shopping/domains >> shallalist.txt
 #cat BL/socialnet/domains >> shallalist.txt
 #cat BL/spyware/domains >> shallalist.txt
-cat BL/tracker/domains >> shallalist.txt
+#cat BL/tracker/domains >> shallalist.txt
 #cat BL/updatesites/domains >> shallalist.txt
 #cat BL/urlshortener/domains >> shallalist.txt
 cat BL/violence/domains >> shallalist.txt
@@ -127,22 +127,22 @@ cat BL/violence/domains >> shallalist.txt
 # Firebog suspicious list 
 #-------------------------------------#
 
-wget https://v.firebog.net/hosts/Cameleon.txt
-wget https://v.firebog.net/hosts/Dshield-Sus.txt
-wget https://v.firebog.net/hosts/HostsFileOrg.txt
-wget https://v.firebog.net/hosts/Kowabit.txt
-wget https://v.firebog.net/hosts/Mahakala.txt
-wget https://v.firebog.net/hosts/JoeyLane.txt
-wget https://v.firebog.net/hosts/PeterLowe.txt
-wget https://v.firebog.net/hosts/PiwikSpam.txt
-wget https://v.firebog.net/hosts/ReddestDream.txt
-wget https://v.firebog.net/hosts/SBDead.txt
-wget https://v.firebog.net/hosts/SBKAD.txt
-wget https://v.firebog.net/hosts/SBSpam.txt
-wget https://v.firebog.net/hosts/SomeoneWC.txt
-wget https://v.firebog.net/hosts/Spam404.txt
-wget https://v.firebog.net/hosts/Vokins.txt
-wget https://v.firebog.net/hosts/Winhelp2002.txt
+#wget https://v.firebog.net/hosts/Cameleon.txt
+#wget https://v.firebog.net/hosts/Dshield-Sus.txt
+#wget https://v.firebog.net/hosts/HostsFileOrg.txt
+#wget https://v.firebog.net/hosts/Kowabit.txt
+#wget https://v.firebog.net/hosts/Mahakala.txt
+#wget https://v.firebog.net/hosts/JoeyLane.txt
+#wget https://v.firebog.net/hosts/PeterLowe.txt
+#wget https://v.firebog.net/hosts/PiwikSpam.txt
+#wget https://v.firebog.net/hosts/ReddestDream.txt
+#wget https://v.firebog.net/hosts/SBDead.txt
+#wget https://v.firebog.net/hosts/SBKAD.txt
+#wget https://v.firebog.net/hosts/SBSpam.txt
+#wget https://v.firebog.net/hosts/SomeoneWC.txt
+#wget https://v.firebog.net/hosts/Spam404.txt
+#wget https://v.firebog.net/hosts/Vokins.txt
+#wget https://v.firebog.net/hosts/Winhelp2002.txt
 
 #-------------------------------------#
 # Firebog privacy list 
@@ -159,20 +159,20 @@ wget https://v.firebog.net/hosts/SB2o7Net.txt
 # Firebog ads list 
 #-------------------------------------#
 
-wget https://v.firebog.net/hosts/AdAway.txt
-wget https://v.firebog.net/hosts/Disconnect-ads.txt
-wget https://v.firebog.net/hosts/HPHosts-ads.txt
-wget https://v.firebog.net/hosts/Easylist.txt
-wget https://v.firebog.net/hosts/Easylist-Dutch.txt
-wget https://v.firebog.net/hosts/SBUnchecky.txt
-wget https://v.firebog.net/hosts/AdguardDNS.txt
-wget https://v.firebog.net/hosts/Prigent-Ads.txt
+#wget https://v.firebog.net/hosts/AdAway.txt
+#wget https://v.firebog.net/hosts/Disconnect-ads.txt
+#wget https://v.firebog.net/hosts/HPHosts-ads.txt
+#wget https://v.firebog.net/hosts/Easylist.txt
+#wget https://v.firebog.net/hosts/Easylist-Dutch.txt
+#wget https://v.firebog.net/hosts/SBUnchecky.txt
+#wget https://v.firebog.net/hosts/AdguardDNS.txt
+#wget https://v.firebog.net/hosts/Prigent-Ads.txt
 
 #-------------------------------------#
 # NoTrack Tracker Blocklist 
 #-------------------------------------#
 
-wget https://gitlab.com/quidsup/notrack-blocklists/raw/master/notrack-blocklist.txt
+#wget https://gitlab.com/quidsup/notrack-blocklists/raw/master/notrack-blocklist.txt
 
 #-------------------------------------#
 # Misc
@@ -258,23 +258,11 @@ sed -i -e 's/^0\.0.\0.\0 -/0.0.0.0 /g' *.txt
 # Whitelist
 #-------------------------------------#
 
-sed -i -e '/0.0.0.0 gleam.io/d' *.txt # Also remove the comment from notrack-blocklist.txt
-sed -i -e '/0.0.0.0 bit.ly$/d' *.txt
-sed -i -e '/0.0.0.0 www.bit.ly$/d' *.txt
-sed -i -e '/\.cloudflare.com$/d' *.txt
-sed -i -e '/\.streamelements.com$/d' *.txt
-sed -i -e '/0.0.0.0 googletagmanager.com$/d' *.txt
-sed -i -e '/0.0.0.0 dba.dk$/d' *.txt
-sed -i -e '/\.dba.dk$/d' *.txt
-sed -i -e '/0.0.0.0 amazon.co.uk$/d' *.txt
-sed -i -e '/0.0.0.0 assoc-amazon.co.uk$/d' *.txt
-sed -i -e '/\.googleapis.com$/d' *.txt
-sed -i -e '/\.one.com$/d' *.txt
-sed -i -e '/\.videolan.org/d' *.txt
-sed -i -e '/download.microsoft.com/d' *.txt
-sed -i -e '/0.0.0.0 ikea.dk$/d' *.txt
-sed -i -e '/0.0.0.0 ikea.se$/d' *.txt
-sed -i -e '/0.0.0.0 s3.amazonaws.com$/d' *.txt
+# Old whitelist, currently not needed.
+# sed -i -e '/0.0.0.0 gleam.io/d' *.txt
+# sed -i -e '/0.0.0.0 bit.ly$/d' *.txt
+# sed -i -e '/0.0.0.0 www.bit.ly$/d' *.txt
+# sed -i -e '/\.videolan.org/d' *.txt
 
 # Epic games doesn't work without their tracker.
 sed -i -e '/0.0.0.0 tracking.epicgames.com/d' *.txt
