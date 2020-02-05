@@ -148,7 +148,7 @@ cat BL/violence/domains >> shallalist.txt
 # Firebog privacy list 
 #-------------------------------------#
 
-wget https://v.firebog.net/hosts/Airelle-trc.txt
+#wget https://v.firebog.net/hosts/Airelle-trc.txt
 wget https://v.firebog.net/hosts/Disconnect-trc.txt
 wget https://v.firebog.net/hosts/Disconnect-mal.txt
 wget https://v.firebog.net/hosts/Easyprivacy.txt
@@ -206,10 +206,6 @@ echo '0.0.0.0 liberation.eulerian.net' >> misc
 # Clean up
 #-------------------------------------#
 
-# Remove domains with non-printable characters.
-# Use "LANG=C" to avoid a "Invalid collation character" error with sed.
-LANG=C sed -i -e 's/[\d128-\d255]//g' *.txt
-
 # Delete specific lines we don't want.
 sed -i -e '/^::1/d' *.txt
 sed -i -e '/^127.0.0.1/d' *.txt
@@ -226,17 +222,8 @@ sed -i -e '/^testing/d' *.txt
 # Remove all domains beginning with a minus sign.
 sed -i -e '/^-/d' *.txt
 
-# Remove all domains containing multiple minus signs.
-sed -i -e '/--/d' *.txt
-
-# Remove all domains with a minus sign followed by a dot.
-sed -i -e '/-\./d' *.txt
-
 # Remove the dot from lines that begins with a dot.
 sed -i -e 's/^\.//g' *.txt
-
-# Remove all comment only lines.
-sed -i -e '/^#/d' *.txt
 
 # Remove all IP only lines from Shallalist.
 sed -i -e 's/[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}//g' shallalist.txt
@@ -247,7 +234,6 @@ sed -i -e '/^$/d' *.txt
 # Change all non-hosts format lists to hosts format.
 sed -i -e '/^0\.0\.0\.0/! s/^/0.0.0.0 /g' *.txt
 
-# Fix some minor left-over issues.
 # Remove the dot from lines that begins with a dot.
 sed -i -e 's/^0\.0.\0.\0 \./0.0.0.0 /g' *.txt
 
@@ -258,8 +244,7 @@ sed -i -e 's/^0\.0.\0.\0 -/0.0.0.0 /g' *.txt
 # Whitelist
 #-------------------------------------#
 
-# Old whitelist, currently not needed.
-# sed -i -e '/0.0.0.0 gleam.io/d' *.txt
+sed -i -e '/0.0.0.0 youtube.com/d' *.txt
 # sed -i -e '/0.0.0.0 bit.ly$/d' *.txt
 # sed -i -e '/0.0.0.0 www.bit.ly$/d' *.txt
 # sed -i -e '/\.videolan.org/d' *.txt
